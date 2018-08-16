@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">LINKa. Бумажная клавиатура</string>
+    <string name="backspace">Шаг назад</string>
+    <string name="clean">Очистить</string>
+    <string name="say">Сказать</string>
+
+    <string name="install_tts">Пожалуйста, установите синтезатор речи из Play Маркета.</string>
+    <string name="lang_doesnt_support">Не могу говорить</string>
+    <string name="ok">Готово</string>
+    <string name="change_grid_size">Изменить количество столбцов</string>
+</resources>

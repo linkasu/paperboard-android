@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">LINKa. Paper Board</string>
+    <string name="action_settings">Settings</string>
+    <string name="backspace">Backspace</string>
+    <string name="clean">Clean</string>
+    <string name="say">Say</string>
+<string name="install_tts">Please, install the speech synth from the Play Store.</string>
+    <string name="lang_doesnt_support">I can\'t speak</string>
+    <string name="ok">OK</string>
+    <string name="change_grid_size">Change num of columns</string>
+</resources>
