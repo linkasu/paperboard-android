@@ -9,7 +9,8 @@ import android.widget.GridView;
 
 import java.util.Arrays;
 
-public class GridController implements AdapterView.OnItemClickListener {
+public class
+GridController implements AdapterView.OnItemClickListener {
 
      static GridController instance ;
     private static MainActivity context;
