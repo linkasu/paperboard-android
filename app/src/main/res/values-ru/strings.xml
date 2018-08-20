@@ -9,4 +9,6 @@
     <string name="lang_doesnt_support">Не могу говорить</string>
     <string name="ok">Готово</string>
     <string name="change_grid_size">Изменить количество столбцов</string>
+    <string name="action_settings">Настройки</string>
+    <string name="alphabet">абвгдеёжзийклмнопрстуфхцчшщъыьэюя</string>
 </resources>

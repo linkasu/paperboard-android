@@ -51,7 +51,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.20"
-            />
+            android:textSize="24sp" />
 
         <GridView
             android:layout_width="0dp"
@@ -65,6 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.20"
+            android:textSize="24sp"
             />
     </LinearLayout>
     <View

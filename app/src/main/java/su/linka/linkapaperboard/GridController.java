@@ -1,5 +1,6 @@
 package su.linka.linkapaperboard;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,7 +17,7 @@ GridController implements AdapterView.OnItemClickListener {
     private static MainActivity context;
     private final GridView grid;
     private int page = 0;
-    private String text = " абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
+    private String text;
     private int gridSize = 3;
 
 
@@ -30,6 +31,7 @@ GridController implements AdapterView.OnItemClickListener {
     GridController (){
 
         context = MainActivity.context;
+        text = "_" + context.getResources().getString(R.string.alphabet);
         grid = (GridView) context.findViewById(R.id.main_grid);
         grid.setOnItemClickListener(this);
 
@@ -42,6 +44,16 @@ GridController implements AdapterView.OnItemClickListener {
 
     public void draw() {
 
+        SlideButtonsController sbc = SlideButtonsController.getInstance();
+        int size = gridSize*gridSize;
+
+        grid.setAdapter(new GridItemController(context, R.layout.grid_button, getPageArray(page)));
+        sbc.setTextForLeftBtn(TextUtils.join(", ", getPageArray(page==0?text.length()/(size):page-1)));
+        sbc.setTextForRightBtn((TextUtils.join(", ", getPageArray(page==text.length()/(size)?0:page+1))));
+        ;
+    }
+
+    private String[] getPageArray(int page) {
         int size = gridSize;
         grid.setNumColumns(size);
         size*=size;
@@ -49,9 +61,7 @@ GridController implements AdapterView.OnItemClickListener {
 
         String localtext = text.substring(page * size, Math.min(text.length(), size*page+size));
         String[] arr = Arrays.copyOfRange(localtext.split(""), 1, localtext.length()+1);
-
-
-        grid.setAdapter(new GridItemController(context, R.layout.grid_button, arr));
+        return arr;
     }
 
     public void  previosPage(){
@@ -88,6 +98,7 @@ GridController implements AdapterView.OnItemClickListener {
     public void setGridSize(int gridSize) {
         this.gridSize = gridSize;
         Cookie.getInstance().setGridSize(gridSize);
+        page=0;
         draw();
     }
 

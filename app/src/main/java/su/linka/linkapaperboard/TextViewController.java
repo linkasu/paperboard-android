@@ -24,8 +24,9 @@ public class TextViewController {
         textView = (TextView) context.findViewById(R.id.textView);
     }
 
-    public void write(String text) {
-        textView.append(text);
+    public void write(String text)  {
+
+        textView.append(text.equals("_") ?" ":text);
     }
 
     public void backspace() {

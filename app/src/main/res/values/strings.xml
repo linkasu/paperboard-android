@@ -8,4 +8,5 @@
     <string name="lang_doesnt_support">I can\'t speak</string>
     <string name="ok">OK</string>
     <string name="change_grid_size">Change num of columns</string>
+    <string name="alphabet">abcdefghijklmnopqrstuvwxyz</string>
 </resources>
