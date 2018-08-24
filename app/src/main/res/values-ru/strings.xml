@@ -11,4 +11,5 @@
     <string name="change_grid_size">Изменить количество столбцов</string>
     <string name="action_settings">Настройки</string>
     <string name="alphabet">абвгдеёжзийклмнопрстуфхцчшщъыьэюя</string>
+    <string name="install_as_system_keyboard">Установить бумажную клавиатуру как системную</string>
 </resources>

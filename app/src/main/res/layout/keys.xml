@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Button
+        android:id="@+id/left_btn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.20"
+        android:textSize="24sp"
+        />
+
+    <GridView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.60"
+        android:numColumns="3"
+        android:id="@+id/main_grid"
+        />
+    <Button
+        android:id="@+id/right_btn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.20"
+        android:textSize="24sp"
+        />
+</LinearLayout>

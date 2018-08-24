@@ -1,10 +1,9 @@
 package su.linka.linkapaperboard;
 
+import android.content.Context;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 
@@ -14,29 +13,55 @@ public class
 GridController implements AdapterView.OnItemClickListener {
 
      static GridController instance ;
-    private static MainActivity context;
+    private static View context;
     private final GridView grid;
     private int page = 0;
     private String text;
     private int gridSize = 3;
+    private OnKeyListener onKeyListener;
+    private SlideButtonsController sbc;
 
 
     public static GridController getInstance() {
-        if(instance==null||(context!=MainActivity.context)){
-            instance = new GridController();
+        if(instance==null||(context!=MainActivity.context.getWindow().getDecorView())){
+            instance = new GridController(MainActivity.context.getWindow().getDecorView());
+            instance.setOnKeyListener(new OnKeyListener() {
+                @Override
+                public void press(String k) {
+                    TextViewController.getInstance().write(k);
+                }
+            });
         }
         return instance;
     }
 
-    GridController (){
+    GridController(View context){
 
-        context = MainActivity.context;
-        text = "_" + context.getResources().getString(R.string.alphabet);
-        grid = (GridView) context.findViewById(R.id.main_grid);
+        GridController.context = context;
+        sbc = new SlideButtonsController(context);
+        text = "␣" + GridController.context.getResources().getString(R.string.alphabet);
+        grid = (GridView) (context).findViewById(R.id.main_grid);
         grid.setOnItemClickListener(this);
 
+        Button leftButton = (Button) context.findViewById(R.id.left_btn);
+        Button rightButton = (Button) context.findViewById(R.id.right_btn);
+        final GridController gc = this;
+        leftButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gc.previosPage();
+            }
+        });
 
-        gridSize = Cookie.getInstance().getGridSize();
+        rightButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                gc.nextPage();
+            }
+        });
+
+
+        gridSize = Cookie.getInstance(context.getContext()).getGridSize();
 
         draw();
 
@@ -44,10 +69,9 @@ GridController implements AdapterView.OnItemClickListener {
 
     public void draw() {
 
-        SlideButtonsController sbc = SlideButtonsController.getInstance();
         int size = gridSize*gridSize;
 
-        grid.setAdapter(new GridItemController(context, R.layout.grid_button, getPageArray(page)));
+        grid.setAdapter(new GridItemController(context.getContext(), R.layout.grid_button, getPageArray(page)));
         sbc.setTextForLeftBtn(TextUtils.join(", ", getPageArray(page==0?text.length()/(size):page-1)));
         sbc.setTextForRightBtn((TextUtils.join(", ", getPageArray(page==text.length()/(size)?0:page+1))));
         ;
@@ -84,7 +108,7 @@ GridController implements AdapterView.OnItemClickListener {
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        TextViewController.getInstance().write(text.charAt(gridSize*gridSize*page+i)+"");
+        onKeyListener.press((text.charAt(gridSize*gridSize*page+i)+"").replace("␣", " "));
     }
 
     public int getSize() {
@@ -105,5 +129,13 @@ GridController implements AdapterView.OnItemClickListener {
     public void setText(String text) {
         this.text = text;
         draw();
+    }
+
+    public void setOnKeyListener(OnKeyListener onKeyListener) {
+        this.onKeyListener = onKeyListener;
+    }
+
+    public static abstract class OnKeyListener {
+        public abstract void press(String k);
     }
 }

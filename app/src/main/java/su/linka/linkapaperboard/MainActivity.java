@@ -1,15 +1,21 @@
 package su.linka.linkapaperboard;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.SeekBar;
 
@@ -26,29 +32,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        View view = getWindow().getDecorView();
+        view.setFocusable(true);
+        view.setFocusableInTouchMode(true);
         // Инициализация AppMetrica SDK
         YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder("ddd48356-81f7-4567-bf41-14a42b1a8de8");
         YandexMetrica.activate(getApplicationContext(), configBuilder.build());
         // Отслеживание активности пользователей
         YandexMetrica.enableActivityAutoTracking(this.getApplication());
 
-        Button leftButton = (Button) findViewById(R.id.left_btn);
-        Button rightButton = (Button) findViewById(R.id.right_btn);
-
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GridController.getInstance().previosPage();
-            }
-        });
-
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                GridController.getInstance().nextPage();
-            }
-        });
 
         context = this;
 
@@ -100,7 +92,23 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
+        if(id==R.id.action_install_as_system_keyboard){
+            startActivityForResult(new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS), 0);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        if(requestCode==0){
+            InputMethodManager imm = (InputMethodManager)
+                    getSystemService(Context.INPUT_METHOD_SERVICE);
+            assert imm != null;
+            imm.showSoftInput(getWindow().getDecorView(), InputMethodManager.SHOW_FORCED);
+            imm.showInputMethodPicker();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

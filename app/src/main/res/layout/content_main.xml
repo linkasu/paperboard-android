@@ -40,34 +40,13 @@
         android:layout_height="1dp"
         android:background="@android:color/darker_gray"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
-        android:orientation="horizontal">
+        android:layout_weight="0.8">
+    <include layout="@layout/keys"/>
+    </RelativeLayout>
 
-        <Button
-            android:id="@+id/left_btn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.20"
-            android:textSize="24sp" />
-
-        <GridView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.60"
-            android:numColumns="3"
-            android:id="@+id/main_grid"
-            />
-        <Button
-            android:id="@+id/right_btn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.20"
-            android:textSize="24sp"
-            />
-    </LinearLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -100,5 +79,6 @@
             android:layout_weight="0.33"
             android:text="@string/say"/>
     </LinearLayout>
+
 
 </LinearLayout>

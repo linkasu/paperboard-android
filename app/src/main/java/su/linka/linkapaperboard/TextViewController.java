@@ -31,6 +31,7 @@ public class TextViewController {
 
     public void backspace() {
         String text = getText();
+        if (text.length()==0) return;
         textView.setText( text.substring(0, text.length()-1));
     }
     public void clean(){
