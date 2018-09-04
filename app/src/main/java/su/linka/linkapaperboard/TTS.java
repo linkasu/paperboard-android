@@ -45,22 +45,22 @@ public class TTS {
 
                     }
                 }
-                    tts.setLanguage(Locale.getDefault());
+                tts.setLanguage(Locale.getDefault());
             }
         });
 
     }
 
     public static TTS getInstance() {
-        if(instance == null || instance.context != MainActivity.context){
+        if (instance == null || instance.context != MainActivity.context) {
             instance = new TTS();
         }
 
         return instance;
     }
 
-    public void speak (String text){
+    public void speak(String text) {
         tts.speak(text, TextToSpeech.QUEUE_FLUSH, null);
-        YandexMetrica.reportEvent("speak", "{\"text\":\""+text+"\"}");
+        YandexMetrica.reportEvent("speak", "{\"text\":\"" + text + "\"}");
     }
 }

@@ -7,16 +7,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.yandex.metrica.YandexMetrica;
@@ -30,13 +26,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         View view = getWindow().getDecorView();
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         // Инициализация AppMetrica SDK
-        YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder("ddd48356-81f7-4567-bf41-14a42b1a8de8");
+        YandexMetricaConfig.Builder configBuilder = YandexMetricaConfig.newConfigBuilder(getString(R.string.yandex_metric_config_id));
         YandexMetrica.activate(getApplicationContext(), configBuilder.build());
         // Отслеживание активности пользователей
         YandexMetrica.enableActivityAutoTracking(this.getApplication());
@@ -45,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         context = this;
 
         GridController.getInstance();
-        ControllButtonsController.getInstance();
+        ControlButtonsController.init();
     }
 
     @Override
@@ -77,13 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
             input.setMax(3);
 
-            input.setProgress(GridController.getInstance().getSize()-1);
+            input.setProgress(GridController.getInstance().getSize() - 1);
             builder.setView(input);
 
 
             builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int i ){
-                    int size = input.getProgress()+1;
+                public void onClick(DialogInterface dialog, int i) {
+                    int size = input.getProgress() + 1;
                     GridController.getInstance().setGridSize(size);
 
                 }
@@ -92,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
-        if(id==R.id.action_install_as_system_keyboard){
+        if (id == R.id.action_install_as_system_keyboard) {
             startActivityForResult(new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS), 0);
             return true;
         }
@@ -102,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode==0){
+        if (requestCode == 0) {
             InputMethodManager imm = (InputMethodManager)
                     getSystemService(Context.INPUT_METHOD_SERVICE);
             assert imm != null;

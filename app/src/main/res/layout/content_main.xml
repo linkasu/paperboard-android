@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -12,7 +13,7 @@
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.2"
+        android:layout_weight="1"
         android:orientation="horizontal">
 
         <TextView
@@ -20,65 +21,67 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
-            android:text=""
-            android:textSize="36dp" />
+            android:textSize="36sp"
+            tools:text="Heu. Gluten messiss"/>
 
         <TextView
             android:id="@+id/cursor"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.2"
+            android:text="@string/symbol_pipeline"
+            android:textSize="36sp"
+            app:layout_constraintStart_toEndOf="@id/textView"/>
 
-            android:text="|"
-            android:textSize="36dp"
-            app:layout_constraintStart_toEndOf="@id/textView"
-           />
     </android.support.constraint.ConstraintLayout>
 
-        <View
+    <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        />
+        android:background="@android:color/darker_gray"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="0.8">
-    <include layout="@layout/keys"/>
+        android:layout_weight="4">
+
+        <include layout="@layout/keys"/>
+
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
-        />
+        android:background="@android:color/darker_gray"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="0.2">
-        <Button
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_backspace"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.33"
+            android:layout_weight="1"
             android:text="@string/backspace"
-            />
-        <Button
+            tools:ignore="NestedWeights"/>
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_clean"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.33"
+            android:layout_weight="1"
             android:text="@string/clean"/>
-        <Button
+
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/button_say"
-
-            android:layout_width="match_parent"
-
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.33"
+            android:layout_weight="1"
             android:text="@string/say"/>
-    </LinearLayout>
 
+    </LinearLayout>
 
 </LinearLayout>

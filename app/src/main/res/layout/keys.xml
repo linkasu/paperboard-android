@@ -1,30 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:orientation="horizontal">
 
-    <Button
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/left_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.20"
-        android:textSize="24sp"
-        />
+        android:layout_weight="1"
+        android:textSize="24sp"/>
 
     <GridView
+        android:id="@+id/main_grid"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.60"
-        android:numColumns="3"
-        android:id="@+id/main_grid"
-        />
-    <Button
+        android:layout_weight="3"
+        android:numColumns="3"/>
+
+    <android.support.v7.widget.AppCompatButton
         android:id="@+id/right_btn"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="0.20"
-        android:textSize="24sp"
-        />
+        android:layout_weight="1"
+        android:textSize="24sp"/>
+
 </LinearLayout>

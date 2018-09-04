@@ -4,38 +4,40 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 class Cookie {
-    private static final String STORAGENAME = "storage";
+    private static final String STORAGE_NAME = "storage";
+    private static final int DEF_VALUE = 3;
+    private static final String GRID_SIZE_ID = "gridsize";
+
     private static Cookie instance;
     private static Context context;
-    private final SharedPreferences sharedPref;
-    private final SharedPreferences.Editor editor;
-    private String gridSizeID = "gridsize";
+
+    private final SharedPreferences mSharedPref;
 
     public static Cookie getInstance() {
         return getInstance(MainActivity.context);
     }
 
-    private Cookie(Context cxt){
+    private Cookie(Context cxt) {
         context = cxt;
-        sharedPref = context.getSharedPreferences(STORAGENAME, Context.MODE_PRIVATE);
-        editor = sharedPref.edit();
+        mSharedPref = context.getSharedPreferences(STORAGE_NAME, Context.MODE_PRIVATE);
 
     }
 
     public int getGridSize() {
-
-        return sharedPref.getInt(gridSizeID, 3);
+        return mSharedPref.getInt(GRID_SIZE_ID, DEF_VALUE);
     }
 
     public void setGridSize(int gridSize) {
-        editor.putInt(gridSizeID, gridSize);
-        editor.commit();
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.putInt(GRID_SIZE_ID, gridSize);
+        editor.apply();
 
     }
 
     public static Cookie getInstance(Context creationContext) {
-        if (instance==null||context!=creationContext) instance = new Cookie(creationContext);
+        if (instance == null || context != creationContext) {
+            instance = new Cookie(creationContext);
+        }
         return instance;
-
     }
 }
