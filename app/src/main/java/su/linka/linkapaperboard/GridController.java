@@ -3,12 +3,11 @@ package su.linka.linkapaperboard;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.Arrays;
 
-public class GridController implements AdapterView.OnItemClickListener {
+public class GridController implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private static GridController instance;
     private static View context;
@@ -41,28 +40,12 @@ public class GridController implements AdapterView.OnItemClickListener {
         grid = (context).findViewById(R.id.main_grid);
         grid.setOnItemClickListener(this);
 
-        Button leftButton = context.findViewById(R.id.left_btn);
-        Button rightButton = context.findViewById(R.id.right_btn);
-        final GridController gc = this;
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gc.previosPage();
-            }
-        });
-
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gc.nextPage();
-            }
-        });
-
+        context.findViewById(R.id.left_btn).setOnClickListener(this);
+        context.findViewById(R.id.right_btn).setOnClickListener(this);
 
         gridSize = Cookie.getInstance(context.getContext()).getGridSize();
 
         draw();
-
     }
 
     public void draw() {
@@ -130,6 +113,18 @@ public class GridController implements AdapterView.OnItemClickListener {
 
     public void setOnKeyListener(OnKeyListener onKeyListener) {
         this.onKeyListener = onKeyListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.left_btn:
+                previosPage();
+                break;
+            case R.id.right_btn:
+                nextPage();
+                break;
+        }
     }
 
     public static abstract class OnKeyListener {
