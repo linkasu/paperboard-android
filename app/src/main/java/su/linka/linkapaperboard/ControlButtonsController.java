@@ -3,22 +3,17 @@ package su.linka.linkapaperboard;
 import android.view.View;
 import android.widget.Button;
 
-public class ControllButtonsController {
-    private static ControllButtonsController instance;
-    private static MainActivity context;
+public class ControlButtonsController {
 
-    public static ControllButtonsController getInstance() {
-        if(instance==null||context!=MainActivity.context){
-            instance = new ControllButtonsController();
-        }
-        return instance;
+    public static void init() {
+        new ControlButtonsController();
     }
 
-    private ControllButtonsController(){
-        context = MainActivity.context;
-        Button backspace = (Button) context.findViewById(R.id.button_backspace);
-        Button clean = (Button) context.findViewById(R.id.button_clean);
-        Button say = (Button) context.findViewById(R.id.button_say);
+    private ControlButtonsController() {
+        MainActivity context = MainActivity.context;
+        Button backspace = context.findViewById(R.id.button_backspace);
+        Button clean = context.findViewById(R.id.button_clean);
+        Button say = context.findViewById(R.id.button_say);
 
         backspace.setOnClickListener(new View.OnClickListener() {
             @Override

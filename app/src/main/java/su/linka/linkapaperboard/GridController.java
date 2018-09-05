@@ -1,29 +1,26 @@
 package su.linka.linkapaperboard;
 
-import android.content.Context;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.GridView;
 
 import java.util.Arrays;
 
-public class
-GridController implements AdapterView.OnItemClickListener {
+public class GridController implements AdapterView.OnItemClickListener, View.OnClickListener {
 
-     static GridController instance ;
+    private static GridController instance;
     private static View context;
     private final GridView grid;
     private int page = 0;
     private String text;
-    private int gridSize = 3;
+    private int gridSize;
     private OnKeyListener onKeyListener;
     private SlideButtonsController sbc;
 
 
     public static GridController getInstance() {
-        if(instance==null||(context!=MainActivity.context.getWindow().getDecorView())){
+        if (instance == null || (context != MainActivity.context.getWindow().getDecorView())) {
             instance = new GridController(MainActivity.context.getWindow().getDecorView());
             instance.setOnKeyListener(new OnKeyListener() {
                 @Override
@@ -35,80 +32,63 @@ GridController implements AdapterView.OnItemClickListener {
         return instance;
     }
 
-    GridController(View context){
+    GridController(View context) {
 
         GridController.context = context;
         sbc = new SlideButtonsController(context);
         text = "␣" + GridController.context.getResources().getString(R.string.alphabet);
-        grid = (GridView) (context).findViewById(R.id.main_grid);
+        grid = (context).findViewById(R.id.main_grid);
         grid.setOnItemClickListener(this);
 
-        Button leftButton = (Button) context.findViewById(R.id.left_btn);
-        Button rightButton = (Button) context.findViewById(R.id.right_btn);
-        final GridController gc = this;
-        leftButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gc.previosPage();
-            }
-        });
-
-        rightButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                gc.nextPage();
-            }
-        });
-
+        context.findViewById(R.id.left_btn).setOnClickListener(this);
+        context.findViewById(R.id.right_btn).setOnClickListener(this);
 
         gridSize = Cookie.getInstance(context.getContext()).getGridSize();
 
         draw();
-
     }
 
     public void draw() {
 
-        int size = gridSize*gridSize;
+        int size = gridSize * gridSize;
 
         grid.setAdapter(new GridItemController(context.getContext(), R.layout.grid_button, getPageArray(page)));
-        sbc.setTextForLeftBtn(TextUtils.join(", ", getPageArray(page==0?text.length()/(size):page-1)));
-        sbc.setTextForRightBtn((TextUtils.join(", ", getPageArray(page==text.length()/(size)?0:page+1))));
-        ;
+        sbc.setTextForLeftBtn(TextUtils.join(", ", getPageArray(page == 0 ? (text.length() / size) : page - 1)));
+        sbc.setTextForRightBtn((TextUtils.join(", ", getPageArray(page == (text.length() / size) ? 0 : page + 1))));
     }
 
     private String[] getPageArray(int page) {
         int size = gridSize;
         grid.setNumColumns(size);
-        size*=size;
+        size *= size;
 
 
-        String localtext = text.substring(page * size, Math.min(text.length(), size*page+size));
-        String[] arr = Arrays.copyOfRange(localtext.split(""), 1, localtext.length()+1);
-        return arr;
+        String localtext = text.substring(page * size, Math.min(text.length(), size * page + size));
+        return Arrays.copyOfRange(localtext.split(""), 1, localtext.length() + 1);
     }
 
-    public void  previosPage(){
-        if(page==0) {
-            page = text.length()/(gridSize*gridSize);
+    public void previosPage() {
+        if (page == 0) {
+            page = text.length() / (gridSize * gridSize);
         } else {
             page--;
         }
         draw();
     }
-    public void nextPage(){
-        int size = gridSize*gridSize;
-        if(text.length()<size*page+size) {
-            page=0;
+
+    public void nextPage() {
+        int size = gridSize * gridSize;
+        if (text.length() < size * page + size) {
+            page = 0;
+        } else {
+            page++;
         }
-        else {
-        page++; }
         draw();
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        onKeyListener.press((text.charAt(gridSize*gridSize*page+i)+"").replace("␣", " "));
+        onKeyListener.press((text.charAt(gridSize * gridSize * page + i) + "").replace("␣", " "));
     }
 
     public int getSize() {
@@ -122,7 +102,7 @@ GridController implements AdapterView.OnItemClickListener {
     public void setGridSize(int gridSize) {
         this.gridSize = gridSize;
         Cookie.getInstance().setGridSize(gridSize);
-        page=0;
+        page = 0;
         draw();
     }
 
@@ -133,6 +113,18 @@ GridController implements AdapterView.OnItemClickListener {
 
     public void setOnKeyListener(OnKeyListener onKeyListener) {
         this.onKeyListener = onKeyListener;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.left_btn:
+                previosPage();
+                break;
+            case R.id.right_btn:
+                nextPage();
+                break;
+        }
     }
 
     public static abstract class OnKeyListener {

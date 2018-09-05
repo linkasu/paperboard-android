@@ -1,9 +1,6 @@
 package su.linka.linkapaperboard;
 
-import android.view.View;
 import android.widget.TextView;
-
-import java.util.concurrent.TimeoutException;
 
 public class TextViewController {
 
@@ -13,31 +10,33 @@ public class TextViewController {
 
 
     public static TextViewController getInstance() {
-        if(instance==null||context!=MainActivity.context){
+        if (instance == null || context != MainActivity.context) {
             instance = new TextViewController();
         }
         return instance;
     }
 
-    private TextViewController(){
+    private TextViewController() {
         context = MainActivity.context;
-        textView = (TextView) context.findViewById(R.id.textView);
+        textView = context.findViewById(R.id.textView);
     }
 
-    public void write(String text)  {
+    public void write(String text) {
 
-        textView.append(text.equals("_") ?" ":text);
+        textView.append(text.equals("_") ? " " : text);
     }
 
     public void backspace() {
         String text = getText();
-        if (text.length()==0) return;
-        textView.setText( text.substring(0, text.length()-1));
+        if (text.length() == 0) return;
+        textView.setText(text.substring(0, text.length() - 1));
     }
-    public void clean(){
+
+    public void clean() {
         textView.setText("");
     }
-    public String getText(){
+
+    public String getText() {
         return textView.getText().toString();
     }
 }

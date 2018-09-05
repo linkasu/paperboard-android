@@ -4,10 +4,13 @@
     <string name="backspace">Backspace</string>
     <string name="clean">Clean</string>
     <string name="say">Say</string>
-<string name="install_tts">Please, install the speech synth from the Play Store.</string>
+    <string name="install_tts">Please, install the speech synth from the Play Store.</string>
     <string name="lang_doesnt_support">I can\'t speak</string>
     <string name="ok">OK</string>
     <string name="change_grid_size">Change num of columns</string>
     <string name="alphabet">abcdefghijklmnopqrstuvwxyz</string>
     <string name="install_as_system_keyboard">Install Paperboard as system keyboard</string>
+
+    <string name="symbol_pipeline" translatable="false">|</string>
+    <string name="yandex_metric_config_id" translatable="false">ddd48356-81f7-4567-bf41-14a42b1a8de8</string>
 </resources>
