@@ -16,25 +16,30 @@ public class SlideButtonsController {
     }
 
     public void setTextForLeftBtn(String text) {
-        setTextForButton(leftBtn, text);
+        setTextForButton(leftBtn, text, "⬅️");
     }
 
     public void setTextForRightBtn(String text) {
-        setTextForButton(rightBtn, text);
+        setTextForButton(rightBtn, text, "➡️");
     }
 
-    private void setTextForButton(AppCompatButton button, String text) {
+    private void setTextForButton(AppCompatButton button, String text, String arrowSymbol) {
         if (TextUtils.isEmpty(text)) {
             return;
         }
         int length = text.length();
-        String rightText;
+        StringBuilder stringBuilder = new StringBuilder();
         if (length == 1) {
-            rightText = text + "\n➡️";
+            stringBuilder.append(text);
         } else {
-            rightText = text.substring(0, 3) + "..." + text.substring(length - 3) + "\n➡️";
+            stringBuilder.append(text.substring(0, 3))
+                    .append("...")
+                    .append(text.substring(length - 3));
         }
-        button.setText(rightText);
+        stringBuilder.append("\n")
+                .append(arrowSymbol);
+
+        button.setText(stringBuilder.toString());
     }
 
 }
