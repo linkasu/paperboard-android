@@ -34,7 +34,9 @@ public class GridItemController extends ArrayAdapter<String> {
         float size = GridController.getInstance().getGridHeight() / (GridController.getInstance().getSize() + 2);
         ((TextView) row).setTextSize(size / context.getResources().getDisplayMetrics().scaledDensity);
 
-        ((TextView) row).setText(data[position]);
+        String symbol = data[position];
+        if (Cookie.getInstance().getUppercaseChecked()) symbol = symbol.toUpperCase();
+        ((TextView) row).setText(symbol);
         return row;
     }
 }

@@ -40,6 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
         context = this;
 
+
+
         GridController.getInstance();
         ControlButtonsController.init();
     }
@@ -55,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+
+        MenuItem item =  menu.findItem(R.id.action_uppercase);
+        item.setChecked(Cookie.getInstance().getUppercaseChecked());
         return true;
     }
 
@@ -88,6 +93,19 @@ public class MainActivity extends AppCompatActivity {
 
             return true;
         }
+
+        if(id == R.id.action_uppercase){
+
+            boolean checked = !item.isChecked();
+
+            Cookie.getInstance().setUppercaseChecked(checked);
+
+
+            item.setChecked(checked);
+            GridController.getInstance().draw();
+            return true;
+        }
+
         if (id == R.id.action_install_as_system_keyboard) {
             startActivityForResult(new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS), 0);
             return true;

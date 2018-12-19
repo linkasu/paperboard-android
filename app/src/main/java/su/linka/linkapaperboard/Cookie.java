@@ -7,6 +7,7 @@ class Cookie {
     private static final String STORAGE_NAME = "storage";
     private static final int DEF_VALUE = 3;
     private static final String GRID_SIZE_ID = "gridsize";
+    private static final String GRID_UPPERCASE_ID = "griduppercase";
 
     private static Cookie instance;
     private static Context context;
@@ -39,5 +40,16 @@ class Cookie {
             instance = new Cookie(creationContext);
         }
         return instance;
+    }
+
+    public void setUppercaseChecked(boolean checked) {
+        SharedPreferences.Editor editor = mSharedPref.edit();
+        editor.putBoolean(GRID_UPPERCASE_ID, checked);
+        editor.apply();
+
+    }
+
+    public boolean getUppercaseChecked() {
+        return mSharedPref.getBoolean(GRID_UPPERCASE_ID, true);
     }
 }

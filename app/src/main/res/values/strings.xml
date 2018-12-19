@@ -13,4 +13,5 @@
 
     <string name="symbol_pipeline" translatable="false">|</string>
     <string name="yandex_metric_config_id" translatable="false">ddd48356-81f7-4567-bf41-14a42b1a8de8</string>
+    <string name="change_uppercase">Symbols in table is uppercase</string>
 </resources>

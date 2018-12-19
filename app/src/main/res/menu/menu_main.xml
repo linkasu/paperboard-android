@@ -8,6 +8,12 @@
         android:title="@string/change_grid_size"
         app:showAsAction="never"/>
     <item
+    android:id="@+id/action_uppercase"
+    android:orderInCategory="100"
+        android:checkable="true"
+    android:title="@string/change_uppercase"
+    app:showAsAction="never"/>
+    <item
         android:id="@+id/action_install_as_system_keyboard"
         android:orderInCategory="100"
         android:title="@string/install_as_system_keyboard"
