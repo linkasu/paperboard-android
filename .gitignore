@@ -3,3 +3,6 @@ build/
 .idea/
 local.properties
 *.iml
+release/
+.DS_Store
+*.apk
