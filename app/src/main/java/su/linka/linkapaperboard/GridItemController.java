@@ -35,8 +35,10 @@ public class GridItemController extends ArrayAdapter<String> {
         ((TextView) row).setTextSize(size / context.getResources().getDisplayMetrics().scaledDensity);
 
         String symbol = data[position];
-        if (Cookie.getInstance().getUppercaseChecked()) symbol = symbol.toUpperCase();
-        ((TextView) row).setText(symbol);
+        if(symbol!=null) {
+            if (Cookie.getInstance().getUppercaseChecked()) symbol = symbol.toUpperCase();
+            ((TextView) row).setText(symbol);
+        }
         return row;
     }
 }
