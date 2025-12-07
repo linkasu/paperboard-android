@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "633898262711",
+    "firebase_url": "https://linka-paperboar.firebaseio.com",
+    "project_id": "linka-paperboar",
+    "storage_bucket": "linka-paperboar.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:633898262711:android:f37fae649af2c285936d32",
+        "android_client_info": {
+          "package_name": "su.linka.linkapaperboard"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDj0Z4t-4ynqOAKBtMlH4hg3izSv8ST524"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
