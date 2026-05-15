@@ -9,7 +9,5 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:singleLine="true"
-    android:textAlignment="center"
     app:layout_constraintDimensionRatio="1:1"
     tools:text="t"/>
-
