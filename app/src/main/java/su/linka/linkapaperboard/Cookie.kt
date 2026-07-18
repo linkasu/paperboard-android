@@ -23,11 +23,21 @@ class Cookie private constructor(private val sharedPref: SharedPreferences) {
 
     fun getUppercaseChecked(): Boolean = sharedPref.getBoolean(GRID_UPPERCASE_ID, true)
 
+    val privacyNoticeAcknowledged: Boolean
+        get() = sharedPref.getBoolean(PRIVACY_NOTICE_ACKNOWLEDGED_ID, false)
+
+    fun acknowledgePrivacyNotice() {
+        sharedPref.edit()
+            .putBoolean(PRIVACY_NOTICE_ACKNOWLEDGED_ID, true)
+            .apply()
+    }
+
     companion object {
         private const val STORAGE_NAME = "storage"
         private const val DEF_VALUE = 3
         private const val GRID_SIZE_ID = "gridsize"
         private const val GRID_UPPERCASE_ID = "griduppercase"
+        private const val PRIVACY_NOTICE_ACKNOWLEDGED_ID = "privacy_notice_acknowledged"
 
         fun from(context: Context): Cookie {
             val appContext = context.applicationContext

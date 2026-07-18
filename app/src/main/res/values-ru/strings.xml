@@ -13,4 +13,8 @@
     <string name="alphabet">абвгдеёжзийклмнопрстуфхцчшщъыьэюя</string>
     <string name="install_as_system_keyboard">Установить бумажную клавиатуру как системную</string>
     <string name="change_uppercase">Символы в таблице прописные</string>
+    <string name="privacy_notice">Конфиденциальность</string>
+    <string name="privacy_notice_description">В LINKa нет аналитики использования и автоматической отправки отчётов о сбоях. Приложение не отправляет введённый или озвучиваемый текст на серверы LINKa. Озвучивание выполняет выбранный на устройстве системный синтезатор Android.</string>
+    <string name="understood">Понятно</string>
+    <string name="later">Позже</string>
 </resources>

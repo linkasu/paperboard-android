@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.speech.tts.TextToSpeech
-import com.yandex.metrica.YandexMetrica
 import java.util.Locale
 
 class TtsManager(private val appContext: Context) {
@@ -52,7 +51,6 @@ class TtsManager(private val appContext: Context) {
             @Suppress("DEPRECATION")
             tts?.speak(text, TextToSpeech.QUEUE_FLUSH, null)
         }
-        YandexMetrica.reportEvent("speak", "{\"text\":\"$text\"}")
     }
 
     fun shutdown() {

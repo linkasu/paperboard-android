@@ -12,8 +12,6 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.SeekBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.yandex.metrica.YandexMetrica
-import com.yandex.metrica.YandexMetricaConfig
 
 class MainActivity : AppCompatActivity() {
 
@@ -32,10 +30,6 @@ class MainActivity : AppCompatActivity() {
         view.isFocusable = true
         view.isFocusableInTouchMode = true
 
-        val configBuilder = YandexMetricaConfig.newConfigBuilder(getString(R.string.yandex_metric_config_id))
-        YandexMetrica.activate(applicationContext, configBuilder.build())
-        YandexMetrica.enableActivityAutoTracking(application)
-
         preferences = Cookie.from(applicationContext)
         ttsManager = TtsManager(applicationContext)
         textController = TextViewController(findViewById(R.id.textView))
@@ -53,6 +47,10 @@ class MainActivity : AppCompatActivity() {
             textController = textController,
             ttsManager = ttsManager
         )
+
+        if (!preferences.privacyNoticeAcknowledged) {
+            showPrivacyNotice()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -92,8 +90,27 @@ class MainActivity : AppCompatActivity() {
                 startActivityForResult(Intent(Settings.ACTION_INPUT_METHOD_SETTINGS), 0)
                 return true
             }
+
+            R.id.action_privacy_notice -> {
+                showPrivacyNotice()
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showPrivacyNotice() {
+        val dialog = AlertDialog.Builder(this)
+            .setTitle(R.string.privacy_notice)
+            .setMessage(R.string.privacy_notice_description)
+            .setPositiveButton(R.string.understood) { _, _ ->
+                preferences.acknowledgePrivacyNotice()
+            }
+            .setNegativeButton(R.string.later) { _, _ -> }
+            .create()
+        dialog.setCancelable(true)
+        dialog.setCanceledOnTouchOutside(true)
+        dialog.show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

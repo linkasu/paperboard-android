@@ -18,4 +18,9 @@
         android:orderInCategory="100"
         android:title="@string/install_as_system_keyboard"
         app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_privacy_notice"
+        android:orderInCategory="100"
+        android:title="@string/privacy_notice"
+        app:showAsAction="never"/>
 </menu>

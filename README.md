@@ -59,6 +59,12 @@ Run debug lint:
 ./gradlew lintDebug
 ```
 
+Verify that the merged release manifest and runtime contain neither Crashlytics nor AppMetrica:
+
+```bash
+./gradlew verifyPrivacyConfiguration
+```
+
 Run instrumented tests only with a connected device or emulator:
 
 ```bash
@@ -70,3 +76,4 @@ Run instrumented tests only with a connected device or emulator:
 - The selectable alphabet is localized via `@string/alphabet`; English and Russian alphabets intentionally differ.
 - The space key is stored internally as `␣` and converted to a real space when a grid item is clicked.
 - `Cookie` stores app preferences in SharedPreferences; tests that touch it should reset state with `Cookie.resetForTests(context)`.
+- The first privacy notice is informational and can be deferred without disabling TTS or the input method. Crashlytics and AppMetrica are not included in the app.

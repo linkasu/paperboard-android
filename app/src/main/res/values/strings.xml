@@ -12,6 +12,9 @@
     <string name="install_as_system_keyboard">Install Paperboard as system keyboard</string>
 
     <string name="symbol_pipeline" translatable="false">|</string>
-    <string name="yandex_metric_config_id" translatable="false">ddd48356-81f7-4567-bf41-14a42b1a8de8</string>
     <string name="change_uppercase">Symbols in table is uppercase</string>
+    <string name="privacy_notice">Privacy</string>
+    <string name="privacy_notice_description">LINKa Paper Board contains no usage analytics or automatic crash reporting. It does not send entered or spoken text to LINKa servers. Speech is handled by the Android speech engine selected on this device.</string>
+    <string name="understood">Understood</string>
+    <string name="later">Later</string>
 </resources>

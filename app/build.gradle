@@ -1,7 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     namespace "su.linka.linkapaperboard"
@@ -11,8 +9,8 @@ android {
         applicationId "su.linka.linkapaperboard"
         minSdk 16
         targetSdk 35    
-        versionCode 6
-        versionName "1.2.1"
+        versionCode 7
+        versionName "1.2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     def keystorePath = System.getenv("ANDROID_KEYSTORE")
@@ -58,15 +56,47 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.coordinatorlayout:coordinatorlayout:1.2.0'
-    implementation 'com.google.firebase:firebase-crashlytics:18.6.2'
     testImplementation 'junit:junit:4.13.2'
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     testImplementation 'org.robolectric:robolectric:4.12.2'
     androidTestImplementation 'androidx.test:runner:1.5.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
 
-    // AppMetrica from maven central.
-    implementation 'com.yandex.android:mobmetricalib:3.2.1'
-    // Optional. Play Install Referrer library for better attribution.
-    implementation 'com.android.installreferrer:installreferrer:2.2'
+tasks.register('verifyPrivacyConfiguration') {
+    dependsOn 'processReleaseMainManifest'
+    doLast {
+        def manifests = fileTree("$buildDir/intermediates").matching {
+            include '**/merged_manifest/**/AndroidManifest.xml'
+            include '**/merged_manifests/**/AndroidManifest.xml'
+        }.files.findAll { manifest ->
+            manifest.path.contains("${File.separator}release${File.separator}")
+        }
+        if (manifests.isEmpty()) {
+            throw new GradleException('Release merged manifest was not generated')
+        }
+        def forbiddenManifestMarkers = ['crashlytics', 'firebase_analytics', 'appmetrica', 'yandex.metrica']
+        manifests.each { manifest ->
+            def manifestText = manifest.getText('UTF-8').toLowerCase()
+            def foundMarkers = forbiddenManifestMarkers.findAll { marker -> manifestText.contains(marker) }
+            if (!foundMarkers.isEmpty()) {
+                throw new GradleException("Merged release manifest contains telemetry markers: ${foundMarkers.join(', ')}")
+            }
+        }
+
+        def forbiddenAnalytics = ['crashlytics', 'firebase-analytics', 'appmetrica', 'mobmetricalib', 'com.yandex.metrica']
+        def resolvedComponents = configurations.releaseRuntimeClasspath.incoming.resolutionResult.allComponents.collect {
+            it.id.displayName.toLowerCase()
+        }
+        def forbiddenComponents = resolvedComponents.findAll { component ->
+            forbiddenAnalytics.any { marker -> component.contains(marker) }
+        }
+        if (!forbiddenComponents.isEmpty()) {
+            throw new GradleException("Forbidden analytics dependencies found: ${forbiddenComponents.join(', ')}")
+        }
+    }
+}
+
+tasks.named('check').configure {
+    dependsOn 'verifyPrivacyConfiguration'
 }

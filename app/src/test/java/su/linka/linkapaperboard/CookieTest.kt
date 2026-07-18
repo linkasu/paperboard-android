@@ -44,4 +44,13 @@ class CookieTest {
 
         assertEquals(false, Cookie.from(context).getUppercaseChecked())
     }
+
+    @Test
+    fun privacyNotice_defaultsToPending_andPersistsAcknowledgement() {
+        val cookie = Cookie.from(context)
+        assertEquals(false, cookie.privacyNoticeAcknowledged)
+
+        cookie.acknowledgePrivacyNotice()
+        assertEquals(true, Cookie.from(context).privacyNoticeAcknowledged)
+    }
 }
